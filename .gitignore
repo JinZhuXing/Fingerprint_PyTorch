@@ -127,3 +127,21 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Dataset
+*.bmp
+*.tif
+*.npy
+*.7z
+
+# Model
+model
+
+# resource
+*.pptx
+
+# Tensorboard logs
+logs
+
+# vscode
+.vscode

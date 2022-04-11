@@ -1,0 +1,11 @@
+# main training requirements
+torch >= 1.10.0
+torchvision >= 0.11.1
+torchaudio >= 0.10.0
+numpy
+opencv-python
+matplotlib
+Pillow
+notebook
+scikit-image
+scikit-learn
