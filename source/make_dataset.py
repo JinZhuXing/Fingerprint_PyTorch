@@ -44,6 +44,10 @@ def main(args):
     img_data, label_data = train_data_pre.prepare_train_data()
     print('Finished: ', img_data.shape, label_data.shape)
 
+    # shuffle data
+    print('Shuffle Dataset...')
+    img_data, label_data = shuffle(img_data, label_data)
+
     # split data
     print('Split Dataset for train and validation...')
     img_proc, img_test, label_proc, label_test = train_test_split(img_data, label_data, test_size = 0.1)
