@@ -173,7 +173,7 @@ class Prepare_Data:
             # single crop
             img_c = img.crop([crop_x, crop_y, crop_x + CropWidth, crop_y + CropHeight])
             img_arr = np.array(img_c)
-            train_imgs.append(img_arr.reshape(CropWidth, CropHeight, 1))
+            train_imgs.append(img_arr.reshape(1, CropWidth, CropHeight))
             train_labels.append(finger_id)
             if save_img == True:
                 img_path_new = save_url + '{0:05d}'.format(finger_id) + '_' + '{0:02d}'.format(finger_idx) + '.bmp'
@@ -186,7 +186,7 @@ class Prepare_Data:
                 img_rot = img.rotate(ang)
                 img_c = img_rot.crop([crop_x, crop_y, crop_x + CropWidth, crop_y + CropHeight])
                 img_arr = np.array(img_c)
-                train_imgs.append(img_arr.reshape(CropWidth, CropHeight, 1))
+                train_imgs.append(img_arr.reshape(1, CropWidth, CropHeight))
                 train_labels.append(finger_id)
                 if save_img == True:
                     img_path_new = save_url + '{0:05d}'.format(finger_id) + '_' + '{0:02d}'.format(finger_idx) + '.bmp'
@@ -200,7 +200,7 @@ class Prepare_Data:
                 img_rot = img_autocont.rotate(ang)
                 img_c = img_rot.crop([crop_x, crop_y, crop_x + CropWidth, crop_y + CropHeight])
                 img_arr = np.array(img_c)
-                train_imgs.append(img_arr.reshape(CropWidth, CropHeight, 1))
+                train_imgs.append(img_arr.reshape(1, CropWidth, CropHeight))
                 train_labels.append(finger_id)
                 if save_img == True:
                     img_path_new = save_url + '{0:05d}'.format(finger_id) + '_' + '{0:02d}'.format(finger_idx) + '.bmp'
@@ -217,7 +217,7 @@ class Prepare_Data:
                 img_rot = Image.fromarray(img_arr)
                 img_c = img_rot.crop([crop_x, crop_y, crop_x + CropWidth, crop_y + CropHeight])
                 img_arr = np.array(img_c)
-                train_imgs.append(img_arr.reshape(CropWidth, CropHeight, 1))
+                train_imgs.append(img_arr.reshape(1, CropWidth, CropHeight))
                 train_labels.append(finger_id)
                 if save_img == True:
                     img_path_new = save_url + '{0:05d}'.format(finger_id) + '_' + '{0:02d}'.format(finger_idx) + '.bmp'
@@ -265,7 +265,7 @@ class Prepare_Data:
             # single crop
             img_c = img.crop([crop_x, crop_y, crop_x + CropWidth, crop_y + CropHeight])
             img_arr = np.array(img_c)
-            eval_imgs.append(img_arr.reshape(CropWidth, CropHeight, 1))
+            eval_imgs.append(img_arr.reshape(1, CropWidth, CropHeight))
             eval_labels.append(finger_id)
             if save_img == True:
                 img_path_new = save_url + '{0:05d}'.format(choice_idx) + '_' + '{0:02d}'.format(finger_id) + '.bmp'

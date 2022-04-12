@@ -18,16 +18,19 @@ class Model_Net(nn.Module):
         self.conv1 = nn.Conv2d(in_channels = 1, out_channels = 32, kernel_size = 3, stride = 1, padding = 1)
         self.conv2 = nn.Conv2d(in_channels = 32, out_channels = 64, kernel_size = 3, stride = 1, padding = 1)
         self.maxpool1 = nn.MaxPool2d(kernel_size = 2, stride = 2, padding = 0)
-        self.fully_connected1 = nn.Linear(in_features = self.img_width * self.img_height, out_features = 1)
+        self.fully_connected1 = nn.Linear(in_features = 4 * self.img_width * self.img_height, out_features = 128)
+        self.fully_connected2 = nn.Linear(in_features = 128, out_features = 1)
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, inputs1, inputs2):
+        inp_batch = inputs1.size(0)
         x1 = F.relu(self.maxpool1(self.conv1(inputs1)))
         x1 = F.relu(self.maxpool1(self.conv2(x1)))
         x2 = F.relu(self.maxpool1(self.conv1(inputs2)))
         x2 = F.relu(self.maxpool1(self.conv2(x2)))
         x = torch.multiply(x1, x2)
-        x = x.view(self.img_width * self.img_height, -1)
+        x = x.view(inp_batch, 128 // inp_batch * self.img_width * self.img_height)
         x = self.fully_connected1(x)
+        x = self.fully_connected2(x)
         x = self.sigmoid(x)
         return x

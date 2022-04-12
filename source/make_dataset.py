@@ -42,6 +42,10 @@ def main(args):
     print('Prepare Dataset...')
     train_data_pre = Prepare_Data(image_width, image_height, dataset_path)
     img_data, label_data = train_data_pre.prepare_train_data()
+
+    # make data as float
+    img_data = img_data.astype(np.float32) / 255.0
+    label_data = label_data.astype(np.float32)
     print('Finished: ', img_data.shape, label_data.shape)
 
     # shuffle data

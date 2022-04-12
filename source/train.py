@@ -38,15 +38,21 @@ class DataGenerator(Dataset):
         self.len = label_np_data.shape[0]
         self.img_data = from_numpy(img_np_data)
         self.label_data = from_numpy(label_np_data)
-        print('Finished: ', img_np_data.shape, label_np_data.shape)
+        
+        # release memory
+        print('DataSize: ', img_np_data.shape, label_np_data.shape)
+        del img_np_data
+        del label_np_data
+
+        print('Finished: ', self.img_data.size(), self.label_data.size())
 
     def __len__(self):
         # return available data count
-        return (self.len * self.len)
+        return self.len
 
     def __getitem__(self, index):
-        first_idx = index // self.len
-        second_idx = index % self.len
+        first_idx = index
+        second_idx = np.random.randint(0, self.len)
 
         # get data
         first_img_data = self.img_data[first_idx]
@@ -54,9 +60,13 @@ class DataGenerator(Dataset):
         first_label_data = self.label_data[first_idx]
         second_label_data = self.label_data[second_idx]
         if (first_label_data.item() == second_label_data.item()):
-            label_data = 1
+            label_data = np.array([1.])
         else:
-            label_data = 0
+            label_data = np.array([0.])
+
+        # convert label data as float
+        label_data = label_data.astype(np.float32)
+        label_data = from_numpy(label_data)
         
         # return data
         return (first_img_data, second_img_data, label_data)
@@ -99,7 +109,7 @@ def main(args):
 
     # train
     for epoch in range(train_epoch):
-        for i, data in enumerate(train_gen, 0):
+        for i, data in enumerate(train_gen):
             # get the inputs
             first_img_data, second_img_data, label_data = data
 
